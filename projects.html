@@ -3,75 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects</title>
+    <title>My Projects | Portfolio</title>
     <style>
-        /* Simple styling to make it easy to read and edit. 
-           You can move this to a separate .css file later! */
-        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 20px; }
-        .portfolio-container { max-width: 1000px; margin: 0 auto; }
-        .category-section { margin-bottom: 40px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
-        h2 { color: #333; border-bottom: 2px solid #333; padding-bottom: 10px;}
-        h3 { color: #555; }
-        ul { list-style-type: square; }
-        ul.sub-list { list-style-type: circle; margin-top: 10px; }
-        a { color: #0066cc; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        /* Modern, Sleek Dark Theme Variables */
+        :root {
+            --bg-color: #0f172a;       /* Deep slate background */
+            --card-bg: #1e293b;        /* Slightly lighter slate for cards */
+            --text-main: #f8fafc;      /* Crisp white text */
+            --text-muted: #94a3b8;     /* Soft gray for descriptions */
+            --accent: #f97316;         /* Orange accent (matches your previous button) */
+            --accent-hover: #ea580c;
+            --border-color: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Top Navigation/Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-btn {
+            color: var(--text-main);
+            text-decoration: none;
+            background: var(--card-bg);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--border-color);
+            border-color: var(--text-muted);
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* CSS Grid for Project Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Interactive Project Cards */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-decoration: none;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background-color: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            transform-origin: bottom;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+            border-color: #475569;
+        }
+
+        .card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.25rem;
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Tags for Sub-Sub-Parts */
+        .tags-container {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: rgba(249, 115, 22, 0.15); /* Soft accent color */
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
 
-<div class="portfolio-container">
-    <h1>My Portfolio</h1>
+<div class="container">
+    <div class="header">
+        <h1>My Projects</h1>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
 
-    <section class="category-section" id="product-tech">
-        <h2>1. Product & Tech Prototype</h2>
-        <ul>
-            <li><a href="#">Medtrack App</a></li>
-            <li><a href="#">Ecogrip</a></li>
-            <li><a href="#">Royal Enfield</a></li>
-            <li><a href="#">Arduino Color Sensor</a></li>
-            <li><a href="#">3D Warehouse Design</a></li>
-        </ul>
-    </section>
+    <div class="category-section">
+        <h2 class="category-title">1. Product & Tech Prototype</h2>
+        <div class="grid">
+            <a href="#" class="card"><h3>Medtrack App</h3></a>
+            <a href="#" class="card"><h3>Ecogrip</h3></a>
+            <a href="#" class="card"><h3>Royal Enfield</h3></a>
+            <a href="#" class="card"><h3>Arduino Color Sensor</h3></a>
+            <a href="#" class="card"><h3>3D Warehouse Design</h3></a>
+        </div>
+    </div>
 
-    <section class="category-section" id="brand-content">
-        <h2>2. Brand & Content Advertisement</h2>
-        <ul>
-            <li><a href="not-average.html">Not Average</a></li>
-            <li><a href="house-of-perspective.html">House of Perspective</a></li>
-            <li><a href="baby-joy-diaper.html">Baby Joy Diaper</a></li>
-            <li><a href="tata-ev-logo.html">Tata EV Logo</a></li>
-            <li><a href="sgf-ai-mascot.html">SGF AI Mascot</a></li>
-        </ul>
-    </section>
+    <div class="category-section">
+        <h2 class="category-title">2. Brand & Content Advertisement</h2>
+        <div class="grid">
+            <a href="not-average.html" class="card">
+                <h3>Not Average</h3>
+                <p>Apparel brand content & marketing</p>
+            </a>
+            <a href="house-of-perspective.html" class="card">
+                <h3>House of Perspective</h3>
+                <p>Podcast branding & production</p>
+            </a>
+            <a href="baby-joy-diaper.html" class="card"><h3>Baby Joy Diaper</h3></a>
+            <a href="tata-ev-logo.html" class="card"><h3>Tata EV Logo</h3></a>
+            <a href="sgf-ai-mascot.html" class="card"><h3>SGF AI Mascot</h3></a>
+        </div>
+    </div>
 
-    <section class="category-section" id="digital-marketing">
-        <h2>3. Digital Marketing & Strategy</h2>
-        <ul>
-            <li><a href="#">Bombay Shaving Cream</a></li>
-            <li><a href="#">Gully Labs Strategy</a></li>
-            <li><a href="#">Durex SEO Audit</a></li>
-            <li>
-                <strong>Brand Pitch Presentation</strong>
-                <ul class="sub-list">
-                    <li><a href="#">Nothing</a></li>
-                    <li><a href="#">Honor</a></li>
-                    <li><a href="#">ALCATEL</a></li>
-                </ul>
-            </li>
-        </ul>
-    </section>
+    <div class="category-section">
+        <h2 class="category-title">3. Digital Marketing & Strategy</h2>
+        <div class="grid">
+            <a href="#" class="card"><h3>Bombay Shaving Cream</h3></a>
+            <a href="#" class="card"><h3>Gully Labs Strategy</h3></a>
+            <a href="#" class="card"><h3>Durex SEO Audit</h3></a>
+            
+            <a href="#" class="card" style="grid-column: 1 / -1; max-width: 500px;">
+                <h3>Brand Pitch Presentation</h3>
+                <p>Comprehensive brand pitch decks for leading tech companies.</p>
+                <div class="tags-container">
+                    <span class="tag">Nothing</span>
+                    <span class="tag">Honor</span>
+                    <span class="tag">ALCATEL</span>
+                </div>
+            </a>
+        </div>
+    </div>
 
-    <section class="category-section" id="business-analytics">
-        <h2>4. Business Analytics & Strategy</h2>
-        <ul>
-            <li><a href="#">Mercedes-Benz Power BI Dashboard</a></li>
-            <li><a href="#">Tata Curvv EV</a></li>
-            <li><a href="#">Paisa Bazar Porter 5 Forces</a></li>
-            <li><a href="#">Colour Affecting Consumer Buying Decision</a></li>
-            <li><a href="#">Campus Merchandise</a></li>
-        </ul>
-    </section>
+    <div class="category-section">
+        <h2 class="category-title">4. Business Analytics & Strategy</h2>
+        <div class="grid">
+            <a href="#" class="card">
+                <h3>Mercedes-Benz Power BI</h3>
+                <p>Sales data visualization dashboard</p>
+            </a>
+            <a href="#" class="card"><h3>Tata Curvv EV</h3></a>
+            <a href="#" class="card"><h3>Paisa Bazar Porter 5 Forces</h3></a>
+            <a href="#" class="card"><h3>Colour Affecting Consumer Buying</h3></a>
+            <a href="#" class="card"><h3>Campus Merchandise</h3></a>
+        </div>
+    </div>
 
 </div>
 
