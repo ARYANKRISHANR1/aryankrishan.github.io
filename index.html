@@ -208,14 +208,16 @@
             display: flex;
             justify-content: center; /* Centers the image */
             align-items: flex-end;
-            height: 600px; /* Gives the image a fixed area to exist in */
+            height: 1000px; /* Gives the image a fixed area to exist in */
         }
 
         .hero-image img {
-            max-width: 550px;
-            height: 100%; /* forces it to take the height of the container */
+            max-width: 800px;
+            height: auto; /* forces it to take the height of the container */
             width: auto; /* prevents horizontal stretching */
             object-fit: contain; /* PERFECT RATIO: prevents any squishing */
+            transform: translateX(50px); /* Move it right (+) or left (-) by pixels */
+    filter: drop-shadow(0 0 30px rgba(255,255,255,0.1));
         }
 
         /* Cards */
