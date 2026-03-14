@@ -35,6 +35,40 @@
             z-index: -1; 
         }
 
+        /* --- SOCIAL & CONTACT BUTTONS --- */
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .social-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .social-btn:hover {
+            background-color: white;
+            color: black;
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+
+        
+
         /* Sparkle Effect */
         .sparkle {
             position: fixed;
@@ -354,13 +388,17 @@
     <main id="contact" class="page-section">
         <div class="content-bg">
             <h2>Contact Me</h2>
-            <p>Interested in collaborating, discussing a project, or just talking about Formula 1? Leave a message below.</p>
-            <form style="max-width: 500px; margin-top: 30px;" onsubmit="event.preventDefault(); alert('Message feature coming soon!');">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea rows="5" placeholder="How can I help you?" required></textarea>
-                <button type="submit" style="background-color: white; color: black; border: none; padding: 12px 25px; border-radius: 4px; font-weight: 500;">Send Message</button>
-            </form>
+            <p>Interested in collaborating, discussing a project, or just talking about Formula 1? Reach out directly below.</p>
+            
+            <div class="social-buttons">
+                <a href="tel:+917404477395" class="social-btn">📞 Call Me</a>
+                
+                <a href="mailto:hisar.aryan@gmail.com" class="social-btn">✉️ Email</a>
+                
+                <a href="https://linkedin.com/in/aryankrishan/" target="_blank" class="social-btn">💼 LinkedIn</a>
+                
+                <a href="https://instagram.com/surpassing69" target="_blank" class="social-btn">📸 Instagram</a>
+            </div>
         </div>
     </main>
 
