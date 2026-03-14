@@ -463,12 +463,12 @@
                         ctx.moveTo(ppx, ppy);
                         ctx.lineTo(px, py);
                         ctx.lineWidth = (1 - star.z / width) * 3;
-                        ctx.strokeStyle = ⁠ rgba(255, 255, 255, ${opacity}) ⁠;
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
                         ctx.stroke();
                     } else {
                         // Draw realistic sharp star points
                         const size = Math.max(0.5, (1 - star.z / width) * 2);
-                        ctx.fillStyle = ⁠ rgba(255, 255, 255, ${opacity}) ⁠;
+                        ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
                         ctx.fillRect(px, py, size, size);
                     }
                 }
@@ -547,14 +547,14 @@
             
             const userDiv = document.createElement('div');
             userDiv.style.textAlign = 'right';
-            userDiv.innerHTML = ⁠ <span style="background:black; color:white; padding:10px; border-radius:8px; margin-bottom:10px; display:inline-block;">${msg}</span> ⁠;
+            userDiv.innerHTML = `<span style="background:black; color:white; padding:10px; border-radius:8px; margin-bottom:10px; display:inline-block;">${msg}</span>`;
             msgContainer.appendChild(userDiv);
             
             input.value = '';
 
             setTimeout(() => {
                 const botDiv = document.createElement('div');
-                botDiv.innerHTML = ⁠ <span class="bot-msg">Aryan is currently optimizing his Power BI dashboard, but he'll get back to you soon. Please use the Contact page to send a formal email.</span> ⁠;
+                botDiv.innerHTML = `<span class="bot-msg">Aryan is currently optimizing his Power BI dashboard, but he'll get back to you soon. Please use the Contact page to send a formal email.</span>`;
                 msgContainer.appendChild(botDiv);
                 msgContainer.scrollTop = msgContainer.scrollHeight;
             }, 600);
