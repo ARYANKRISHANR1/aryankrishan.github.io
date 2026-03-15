@@ -404,12 +404,12 @@
 
     <div id="chatbot-container">
         <div id="chatbot-header" onclick="toggleChat()">
-            <span>Aryan jr.</span>
+            <span>Aryan Jr.</span>
             <span id="chat-icon">▲</span>
         </div>
         <div id="chatbot-window">
             <div id="chatbot-messages">
-                <div class="bot-msg">Hi! I'm aryan jr. How can I help you navigate Aryan's universe today?</div>
+                <div class="bot-msg">Hi! I'm aryan Jr. How can I help you navigate Aryan's universe today?</div>
             </div>
             <div id="chatbot-input-area">
                 <input type="text" id="chat-input" placeholder="Ask something..." onkeypress="handleChat(event)">
@@ -418,25 +418,7 @@
         </div>
     </div>
 
-<div id="aryan-jr-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; font-family: system-ui, -apple-system, sans-serif;">
-    <div id="chat-bubble" onclick="toggleChat()" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); width: 60px; height: 60px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 32px rgba(0,0,0,0.3); transition: 0.3s;">
-        <span style="font-size: 24px;">🏃‍♂️</span>
-    </div>
 
-    <div id="chat-window" style="display: none; width: 320px; height: 480px; background: #020205; border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; flex-direction: column; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.8);">
-        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 500; letter-spacing: 1px; color: #fff;">Aryan Jr. ✨</span>
-            <span onclick="toggleChat()" style="cursor: pointer; opacity: 0.5; color: #fff;">✕</span>
-        </div>
-        <div id="chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; font-size: 0.9rem; line-height: 1.4; color: #cbd5e1;">
-            <div style="margin-bottom: 10px;"><b>Aryan Jr:</b> Hey! I'm Aryan's digital twin. I'm a psychology nerd, a runner, and a full-time dreamer. Ask me anything about my work, my runs, or even how to reach me! 😊</div>
-        </div>
-        <div style="padding: 10px; border-top: 1px solid rgba(255,255,255,0.1); display: flex;">
-            <input type="text" id="user-input" placeholder="Type a message..." style="flex: 1; background: transparent; border: none; color: white; outline: none; font-size: 0.9rem;">
-            <button onclick="handleSendMessage()" style="background: transparent; border: none; color: #3b82f6; cursor: pointer; font-weight: bold;">Send</button>
-        </div>
-    </div>
-</div>
 
     
     <script>
@@ -619,100 +601,5 @@
             }, 600);
         }
     </script>
-    <script>
-    // --- 1. DATA CORE ---
-    const AryanJrData = {
-        identity: {
-            name: "Aryan Krishan",
-            born: "July 12, 2002",
-            contact: {
-                phone: "+91-7404477395",
-                email: "hisar.aryan@gmail.com",
-                linkedin: "linkedin.com/in/aryankrishan",
-                instagram: "@surpassing69"
-            }
-        },
-        philosophy: {
-            careerPath: "I started with Psychology because I wanted to understand the 'why' behind human choices. That curiosity led me to the industrial hubs of Panipat and Faridabad, where I learned the 'Jai Bharat' hustle—managing a 3.6 Crore portfolio. Now at IIT Jodhpur, I'm blending that 'street-smart' sales grit with Neuromarketing to build things that actually matter.",
-            running: "Running isn't just a sport; it's my mental fuel. Whether it's securing medals at Varchas or pushing for a sub-15 minute 5k, I apply that same track discipline to my projects: keep breathing, keep moving, and never stop before the finish line.",
-            notAverage: "My brand, 'Not Average'[cite: 28], is for people who refuse to settle. I use Gen AI to make sure our message hits home[cite: 29]. It’s about building a community, not just a label.",
-            humility: "I've learned that failing is just 'data collection.' Like my first inter-IIT meet [cite: 34]—I didn't win gold, but I learned exactly what it takes to stand among the best."
-        },
-        tools: {
-            martech: "I loved creating 'Dia,' an AI mascot for SGF Foods[cite: 23]. I mapped out text-to-voice flows to make ordering food feel like talking to a friend.",
-            data: "My Mercedes-Benz dashboard [cite: 30] tracks their shift into high-margin luxury and EVs. It's about seeing where the world is going.",
-            general: "I'm handy with Power BI [cite: 42], Meta Insights, and Shopify[cite: 29]. I even used Gen AI to optimize my brand positioning!"
-        }
-    };
-
-    // --- 2. CHAT FUNCTIONS ---
-    function toggleChat() {
-        const window = document.getElementById('chat-window');
-        window.style.display = (window.style.display === 'none' || window.style.display === '') ? 'flex' : 'none';
-    }
-
-    // Allow "Enter" key to send messages
-    document.getElementById('user-input').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') handleSendMessage();
-    });
-
-    function handleSendMessage() {
-        const input = document.getElementById('user-input');
-        const text = input.value.trim().toLowerCase();
-        if (!text) return;
-
-        addMessage("You", input.value);
-        input.value = "";
-
-        // Artificial delay for a "human" feel
-        setTimeout(() => {
-            let response = "I'm still learning, but I'm pretty sure Aryan would say: 'Execution over perfection!' Want to hear about my projects or my running goals? 🏃‍♂️";
-
-            // Narrative & Persona Logic
-            if (text.includes("why") || text.includes("psychology") || text.includes("career")) {
-                response = AryanJrData.philosophy.careerPath + " It's been a wild ride! ✨";
-            } 
-            else if (text.includes("running") || text.includes("athlete") || text.includes("5k") || text.includes("sports")) {
-                response = AryanJrData.philosophy.running + " I'm currently training for that sub-15 min 5k. Wish me luck! 🍀";
-            } 
-            else if (text.includes("not average") || text.includes("brand")) {
-                response = AryanJrData.philosophy.notAverage + " We're just getting started! 👕";
-            } 
-            else if (text.includes("fail") || text.includes("lesson")) {
-                response = AryanJrData.philosophy.humility + " Every setback is just a setup for a comeback, right? 😊";
-            }
-            // Contact & Data Logic
-            else if (text.includes("contact") || text.includes("phone") || text.includes("email")) {
-                response = `You can reach me at ${AryanJrData.identity.contact.phone} or email me at ${AryanJrData.identity.contact.email}. I'd love to chat! 📱`;
-            } 
-            else if (text.includes("instagram") || text.includes("insta")) {
-                response = `Check me out on Instagram at ${AryanJrData.identity.contact.instagram}! 📸`;
-            }
-            else if (text.includes("linkedin")) {
-                response = `Let's connect on LinkedIn! You can find me at ${AryanJrData.identity.contact.linkedin}. 🤝`;
-            }
-            // Tech & Projects Logic
-            else if (text.includes("tool") || text.includes("tech") || text.includes("power bi") || text.includes("project") || text.includes("work")) {
-                response = `${AryanJrData.tools.general} I also built 'Dia' [cite: 23] and the Mercedes-Benz dashboard[cite: 30]. Want to know more about a specific one? 🤖`;
-            }
-            else if (text.includes("hi") || text.includes("hello") || text.includes("who are you")) {
-                response = "Hey! I'm Aryan Jr. I'm usually busy thinking about Neuromarketing or my next long run. How can I help you today? 🌸";
-            }
-
-            addMessage("Aryan Jr", response);
-        }, 600);
-    }
-
-    function addMessage(sender, text) {
-        const container = document.getElementById('chat-messages');
-        const msg = document.createElement('div');
-        msg.style.marginBottom = "10px";
-        msg.innerHTML = `<b>${sender}:</b> ${text}`;
-        container.appendChild(msg);
-        container.scrollTop = container.scrollHeight;
-    }
-
-    console.log("Aryan Jr. is trained, integrated, and ready! 🚀");
-</script>
 </body>
 </html>
