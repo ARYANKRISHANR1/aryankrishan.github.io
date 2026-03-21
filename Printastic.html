@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printastic | Case Study</title>
+    
+    <style>
+        /* Base Space Theme Variables */
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #3b82f6;
+            --text-color: #ffffff;
+            --accent-font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--accent-font);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: #020205; /* Deepest space black */
+            overflow-x: hidden;
+            line-height: 1.6;
+            /* Custom Pen Cursor */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z" fill="%23ffffff"/></svg>') 0 24, auto;
+        }
+
+        /* Space Canvas Background */
+        #space-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; 
+        }
+
+        /* Sparkle Effect */
+        .sparkle {
+            position: fixed; pointer-events: none; width: 4px; height: 4px;
+            background-color: white; border-radius: 50%;
+            box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8); z-index: 9999;
+            animation: sparkleFade 0.8s ease-out forwards;
+        }
+        @keyframes sparkleFade {
+            0% { opacity: 1; transform: scale(1) translateY(0); }
+            100% { opacity: 0; transform: scale(0.1) translateY(15px); }
+        }
+
+        /* Navigation Buttons */
+        nav {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(2, 2, 5, 0.6);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            font-size: 0.95rem; 
+            transition: 0.3s; 
+            cursor: inherit;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+        .nav-links a:hover { background: white; color: black; }
+
+        /* Main Project Container */
+        .project-container {
+            max-width: 900px; 
+            margin: 40px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+
+        .project-title {
+            font-size: 2.8rem;
+            font-weight: 300;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+        }
+
+        /* --- SLIDESHOW CSS --- */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+            background: #000; 
+        }
+
+        .mySlides {
+            display: none;
+            width: 100%;
+            height: 450px; 
+            object-fit: contain; 
+        }
+
+        .active-slide { display: block; }
+
+        .prev, .next {
+            cursor: inherit;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+            border: none;
+        }
+
+        .next { right: 0; border-radius: 3px 0 0 3px; }
+        .prev:hover, .next:hover { background-color: rgba(255,255,255,0.8); color: black; }
+
+        /* --- TEXT CONTENT CSS --- */
+        .project-description h3 {
+            color: #cbd5e1;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+        
+        .project-description p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .project-description ul {
+            color: #94a3b8;
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .project-description li {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .highlight-text {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .nested-list {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* --- REDIRECT BUTTON CSS --- */
+        .next-project-btn {
+            display: block;
+            width: fit-content;
+            margin: 50px auto 10px;
+            padding: 14px 28px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: inherit;
+        }
+
+        .next-project-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .project-container { margin: 20px; padding: 20px; }
+            .project-title { font-size: 2rem; }
+            .mySlides { height: 250px; }
+            nav { flex-direction: column; gap: 15px; }
+            .next-project-btn { width: 100%; box-sizing: border-box; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="space-canvas"></canvas>
+
+    <nav>
+        <div class="nav-links">
+            <a href="index.html">← Back to Universe</a>
+        </div>
+        <div class="nav-links">
+            <a href="projects.html">← Back to Projects</a>
+        </div>
+    </nav>
+
+    <main class="project-container">
+        
+        <h1 class="project-title">Printastic: A Trend-Driven Micro-Venture in Aesthetic Merchandising</h1>
+
+        <div class="slideshow-container">
+            <img class="mySlides active-slide" src="printastic1.jpg" alt="Printastic Case Study Slide 1">
+            <img class="mySlides" src="printastic2.jpg" alt="Printastic Case Study Slide 2">
+            <img class="mySlides" src="printastic3.jpg" alt="Printastic Case Study Slide 3">
+            <img class="mySlides" src="printastic4.jpg" alt="Printastic Case Study Slide 4">
+            <img class="mySlides" src="printastic5.jpg" alt="Printastic Case Study Slide 5">
+            
+            <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+            <button class="next" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+
+        <div class="project-description">
+            
+            <h3>Overview</h3>
+            <p>Printastic was a self-sustained marketing project executed within the IIT Jodhpur campus ecosystem. The project focused on capitalizing on the "Aesthetic Room Decor" trend, specifically targeting the high demand for Studio Ghibli and anime-themed visuals. We developed a product line consisting of high-quality A3 and A4 posters, alongside innovative custom door tags, providing students with an affordable way to personalize their living spaces.</p>
+
+            <h3>My Role & What I Did</h3>
+            <ul>
+                <li><span class="highlight-text">Trend Analysis & Curation:</span> Identified Ghibli-themed art as a high-conversion niche among the student demographic. Curated a collection of trending visuals to ensure product-market fit.</li>
+                <li><span class="highlight-text">Product Development & Sourcing:</span> Managed the end-to-end production of high-quality prints in multiple formats (A3/A4) and designed unique door tags as a low-cost, high-engagement entry product.</li>
+                <li><span class="highlight-text">Omnichannel Marketing Strategy:</span>
+                    <ul class="nested-list">
+                        <li><strong>Digital Presence:</strong> Developed and managed a dedicated website to streamline orders and showcase the catalog.</li>
+                        <li><strong>Ground Activation:</strong> Executed a "door-to-door" marketing campaign across the IIT hostels to build brand awareness and drive immediate sales.</li>
+                    </ul>
+                </li>
+                <li><span class="highlight-text">Financial & Inventory Management:</span> Oversaw the pricing strategy to balance affordability with healthy margins and managed stock levels based on real-time demand.</li>
+            </ul>
+
+            <h3>The Outcome</h3>
+            <p>The project was a significant commercial success for a campus-led initiative:</p>
+            <ul>
+                <li><span class="highlight-text">Revenue Generation:</span> Achieved total sales of ₹15,000+ within a short campaign window.</li>
+                <li><span class="highlight-text">Profitability:</span> Successfully generated a substantial gross profit, proving the viability of the low-overhead, high-trend business model.</li>
+                <li><span class="highlight-text">Market Penetration:</span> Established a strong brand presence across the IIT campus, successfully fulfilling orders for hundreds of posters and door tags.</li>
+            </ul>
+
+            <a href="color.html" class="next-project-btn">View Next: The Psychology of Color &#10230;</a>
+
+        </div>
+
+    </main>
+
+    <script>
+        // --- SLIDESHOW LOGIC ---
+        let slideIndex = 0;
+        const slides = document.getElementsByClassName("mySlides");
+
+        function changeSlide(n) {
+            slides[slideIndex].classList.remove("active-slide");
+            slideIndex += n;
+            if (slideIndex >= slides.length) { slideIndex = 0; } 
+            if (slideIndex < 0) { slideIndex = slides.length - 1; }
+            slides[slideIndex].classList.add("active-slide");
+        }
+
+        // --- SPARKLE CURSOR LOGIC ---
+        let lastSparkleTime = 0;
+        document.addEventListener('mousemove', function(e) {
+            const now = Date.now();
+            if (now - lastSparkleTime > 40) {
+                createSparkle(e.clientX, e.clientY);
+                lastSparkleTime = now;
+            }
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = (x - 2) + 'px';
+            sparkle.style.top = (y + 10) + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 800);
+        }
+
+        // --- SPACE BACKGROUND LOGIC ---
+        const canvas = document.getElementById('space-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let stars = [];
+        const numStars = 600; 
+        let speed = 0.2; 
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * width * 2 - width,
+                y: Math.random() * height * 2 - height,
+                z: Math.random() * width
+            });
+        }
+
+        function drawStars() {
+            ctx.fillStyle = 'rgba(2, 2, 5, 1)';
+            ctx.fillRect(0, 0, width, height);
+            
+            stars.forEach(star => {
+                star.z -= speed;
+                if (star.z <= 0) {
+                    star.z = width;
+                    star.x = Math.random() * width * 2 - width;
+                    star.y = Math.random() * height * 2 - height;
+                }
+
+                const k = 128.0 / star.z;
+                const px = star.x * k + width / 2;
+                const py = star.y * k + height / 2;
+                const opacity = Math.min(1, (1 - star.z / width) * 2);
+
+                if (px >= 0 && px <= width && py >= 0 && py <= height) {
+                    const size = Math.max(0.5, (1 - star.z / width) * 2);
+                    ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                    ctx.fillRect(px, py, size, size);
+                }
+            });
+            requestAnimationFrame(drawStars);
+        }
+        drawStars();
+    </script>
+</body>
+</html>
