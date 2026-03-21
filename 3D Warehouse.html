@@ -102,12 +102,28 @@
             margin-bottom: 40px;
             border: 1px solid rgba(255,255,255,0.1);
             overflow: hidden;
+            position: relative;
         }
 
         model-viewer {
             width: 100%;
             height: 100%;
             outline: none;
+        }
+
+        /* Progress Bar for the 500MB file */
+        #progress-bar {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            bottom: 0;
+        }
+        #update-bar {
+            width: 0%;
+            height: 100%;
+            background: #3b82f6;
+            transition: width 0.3s;
         }
 
         /* --- TEXT CONTENT CSS --- */
@@ -162,16 +178,24 @@
 
         <div class="model-section">
             <model-viewer 
-                src="warehouse_model.glb" 
+                id="warehouse-viewer"
+                src="https://github.com/ARYANKRISHANR1/portfolio/releases/download/V1.0.0/warehouse_model.glb" 
                 alt="3D Automated Warehouse Model" 
                 auto-rotate 
                 camera-controls 
                 shadow-intensity="2" 
                 exposure="1"
                 environment-image="neutral"
+                loading="lazy"
                 ar>
-                <div class="loading-label" slot="poster" style="color: white; text-align: center; padding-top: 200px;">
-                    Loading 3D Experience...
+                
+                <div id="poster" slot="poster" style="color: white; text-align: center; padding-top: 200px;">
+                    <p>Loading 500MB Architecture...</p>
+                    <p style="font-size: 0.8rem; opacity: 0.6;">(This may take a moment depending on your internet speed)</p>
+                </div>
+
+                <div id="progress-bar" slot="progress-bar">
+                    <div id="update-bar"></div>
                 </div>
             </model-viewer>
         </div>
@@ -179,18 +203,17 @@
         <div class="project-description">
             
             <h3>Overview</h3>
-            <p>Developed as a collaborative project for a Supply Chain Management course, this initiative aimed to visualize the future of logistics through a fully automated warehouse ecosystem. The project addresses the need for maximum efficiency and "lights-out" operations in modern e-commerce. It features a complete end-to-end automated flow, utilizing a combination of autonomous vehicles and aerial robotics to eliminate the need for manual human intervention in the fulfillment process.</p>
+            <p>Developed as a collaborative project for a Supply Chain Management course, this initiative aimed to visualize the future of logistics through a fully automated warehouse ecosystem...</p>
 
             <h3>My Role & What I Did</h3>
             <ul>
                 <li><strong>3D Environmental Design:</strong> Mastered Blender within 24 hours to design and render a high-fidelity 3D model of the warehouse facility.</li>
-                <li><strong>Systems Architecture:</strong> Designed the automated workflow, including autonomous truck docking stations, conveyor-based "moving table" sorting systems, and robotic arm integration for precise box placement.</li>
-                <li><strong>Last-Mile Integration:</strong> Integrated a drone delivery system into the 3D model to demonstrate a seamless transition from warehouse storage to final customer delivery.</li>
-                <li><strong>Rapid Prototyping:</strong> Utilized a "Lego-style" modular building approach with pre-resources to quickly assemble a complex industrial environment under a tight deadline.</li>
+                <li><strong>Systems Architecture:</strong> Designed the automated workflow, including autonomous truck docking stations and robotic integration.</li>
+                <li><strong>Last-Mile Integration:</strong> Integrated a drone delivery system into the 3D model.</li>
             </ul>
 
             <h3>The Outcome</h3>
-            <p>The project was highly successful, receiving significant praise from the faculty for both the technological vision and the quality of the visual presentation. The prototype effectively demonstrated how automation can handle the entire intake-to-delivery cycle, proving the feasibility of high-efficiency, autonomous logistics hubs.</p>
+            <p>The project was highly successful, receiving significant praise from the faculty for both the technological vision and the quality of visual presentation.</p>
 
         </div>
 
@@ -267,6 +290,14 @@
             requestAnimationFrame(drawStars);
         }
         drawStars();
+
+        // --- PROGRESS BAR LOGIC ---
+        const modelViewer = document.querySelector('#warehouse-viewer');
+        const progressBar = document.querySelector('#update-bar');
+        modelViewer.addEventListener('progress', (event) => {
+            const percent = event.detail.totalProgress * 100;
+            progressBar.style.width = `${percent}%`;
+        });
     </script>
 </body>
 </html>
