@@ -28,7 +28,8 @@ exports.handler = async function(event, context) {
     - Hobbies: Ultra-marathoner (5km PR: 17:22), cyclist.`;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        // FIXED: Updated the model name to gemini-1.5-flash-latest
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -39,8 +40,6 @@ exports.handler = async function(event, context) {
 
         const data = await response.json();
 
-        // THIS IS THE MAGIC DIAGNOSTIC FIX!
-        // If Google rejects it, Aryan Jr. will tell us exactly why.
         if (data.error) {
             return {
                 statusCode: 200, 
