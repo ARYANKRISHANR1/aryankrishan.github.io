@@ -4,38 +4,21 @@ exports.handler = async function(event, context) {
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
-    
-    if (!apiKey) {
-         return { statusCode: 500, body: JSON.stringify({ reply: "My brain is missing its key!" }) };
-    }
+    if (!apiKey) return { statusCode: 500, body: JSON.stringify({ reply: "API Key missing." }) };
 
-    let userMessage = "";
-    try {
-        const body = JSON.parse(event.body);
-        userMessage = body.message;
-    } catch (e) {
-        return { statusCode: 400, body: JSON.stringify({ reply: "I didn't understand that message." }) };
-    }
+    const body = JSON.parse(event.body);
+    const userMessage = body.message;
 
-    const systemPrompt = `You are "Aryan jr.", the virtual assistant for Aryan Krishan. Keep answers concise (1-3 sentences).
-    Data:
-    - Origin: Born July 12, 2002, in Bhiwani, raised in Hisar.
-    - Transformation: At IIT Jodhpur, transformed from 78kg to 62kg athlete. 
-    - Education: MBA at IIT Jodhpur, BSc Psychology Hons.
-    - Work: Sales Exec at Jai Bharat, Marketing Intern at SGF Foods.
-    - Projects: Founded 'Not Average' brand, built Mercedes dashboard and 'Munshi AI'.
-    - Skills: Google Certified Project Manager, Growth Marketer.
-    - Hobbies: Ultra-marathoner (5km PR: 17:22), cyclist.`;
+    const systemPrompt = `You are "Aryan jr.", the virtual assistant for Aryan Krishan. Born July 12, 2002. MBA at IIT Jodhpur. BSc Psychology. Ultra-marathoner. Founder of 'Not Average'. Keep answers to 1-2 sentences.`;
 
     try {
-        // CHANGED: /v1/ instead of /v1beta/ and removed -latest
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        // Using the most stable endpoint: v1beta and gemini-pro
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 contents: [{ 
-                    role: "user", 
-                    parts: [{ text: `System Instruction: ${systemPrompt}\n\nUser Message: ${userMessage}` }] 
+                    parts: [{ text: `${systemPrompt}\n\nUser asked: ${userMessage}` }] 
                 }]
             })
         });
@@ -49,23 +32,17 @@ exports.handler = async function(event, context) {
             };
         }
 
-        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+        if (data.candidates && data.candidates[0].content) {
              const aiReply = data.candidates[0].content.parts[0].text;
              return {
                  statusCode: 200,
                  body: JSON.stringify({ reply: aiReply })
              };
-        } else {
-             return {
-                 statusCode: 200,
-                 body: JSON.stringify({ reply: "Google responded, but I couldn't find the text." })
-             };
         }
+        
+        return { statusCode: 200, body: JSON.stringify({ reply: "I connected, but got no text back." }) };
 
     } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ reply: "My connection failed." })
-        };
+        return { statusCode: 500, body: JSON.stringify({ reply: "Connection failed." }) };
     }
 }
