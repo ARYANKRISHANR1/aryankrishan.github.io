@@ -22,7 +22,7 @@ exports.handler = async function (event) {
         "X-Title": "Aryan Jr. Chatbot"
       },
       body: JSON.stringify({
-        model: "mistralai/mistral-7b-instruct:free",
+        model: "openrouter/auto",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: message }
