@@ -8,7 +8,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-XXXXXXXXXX');
+  gtag('config', 'G-H13E98CV65');
 </script>
     <meta name="viewport" content="width=1280">
     <title>Aryan Krishan | Welcome to My Universe</title>
@@ -634,14 +634,14 @@
             if (e.key === 'Enter') sendMsg();
         }
 
-        function sendMsg() {
+ async function sendMsg() {
             const input = document.getElementById('chat-input');
             const msg = input.value.trim();
             if (!msg) return;
 
             const msgContainer = document.getElementById('chatbot-messages');
             
-            // Show the user's message
+            // Show your message
             const userDiv = document.createElement('div');
             userDiv.style.textAlign = 'right';
             userDiv.innerHTML = `<span style="background:black; color:white; padding:10px; border-radius:8px; margin-bottom:10px; display:inline-block;">${msg}</span>`;
@@ -649,16 +649,33 @@
             
             input.value = '';
 
-            // Generate the dynamic response from your training data!
-            const reply = getBotResponse(msg);
+            // Show "Thinking..."
+            const typingDiv = document.createElement('div');
+            typingDiv.innerHTML = `<span class="bot-msg" id="typing-indicator">Aryan jr. is thinking...</span>`;
+            msgContainer.appendChild(typingDiv);
+            msgContainer.scrollTop = msgContainer.scrollHeight;
 
-            // Show the bot's reply
-            setTimeout(() => {
+            try {
+                const response = await fetch('/.netlify/functions/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: msg })
+                });
+
+                const data = await response.json();
+                document.getElementById('typing-indicator').parentNode.remove();
+
+                // Show the AI's real response
                 const botDiv = document.createElement('div');
-                botDiv.innerHTML = `<span class="bot-msg">${reply}</span>`;
+                botDiv.innerHTML = `<span class="bot-msg">${data.reply}</span>`;
                 msgContainer.appendChild(botDiv);
-                msgContainer.scrollTop = msgContainer.scrollHeight;
-            }, 600);
+            } catch (error) {
+                if(document.getElementById('typing-indicator')) document.getElementById('typing-indicator').parentNode.remove();
+                const errorDiv = document.createElement('div');
+                errorDiv.innerHTML = `<span class="bot-msg">Error connecting to brain.</span>`;
+                msgContainer.appendChild(errorDiv);
+            }
+            msgContainer.scrollTop = msgContainer.scrollHeight;
         }
     </script>
 </body>
