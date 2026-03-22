@@ -571,6 +571,43 @@
         }
 
         // --- CHATBOT LOGIC ---
+        // --- CHATBOT LOGIC & TRAINING DATA ---
+        const aryanData = {
+            "origin": "Aryan was born on July 12, 2002, in Bhiwani and raised in Hisar, Haryana. Growing up as the son of a central government employee, he attended many schools and explored diverse cultures, which fueled his creative eye.",
+            "transformation": "At IIT Jodhpur, Aryan experienced a 'rebirth.' He transformed from being chubby to having an athlete's build (dropping from 78kg to 62kg) and mastered the ability to focus on deep work for 5-10 hours at a time.",
+            "education": "He is currently pursuing an MBA at IIT Jodhpur (Post-grad: 7.2 CGPA) and holds a BSc Psychology Hons from Guru Jambheshwar University. He scored an 88 percentile in CAT.",
+            "sales_experience": "At Jai Bharat Industries (Apr 2023 - Jun 2024), Aryan managed an annual portfolio of 3.6 Crores, modernized sales workflows to speed up quotes by 20%, and reduced transport damage by improving packaging standards.",
+            "marketing_internship": "During his internship at SGF Foods (May 2025 - July 2025), he led market research for a 24x7 store model, boosted store ratings from 3.9 to 4.3 in 3 weeks, and conceptualized 'Dia,' an AI brand mascot.",
+            "hobbies": "He is an avid cyclist (covering distances up to 700km) and an ultra-marathoner. In his childhood, he loved drawing cars and dreamed of being an engineer.",
+            "why_hire": "Aryan combines the analytical mind of a Product Guy with the empathetic heart of a Psychologist. He's a problem solver who gets to the root cause, making him an excellent Project Manager and Growth Marketer.",
+            "grades": "10th: 69%, 12th: 66.8%, Graduation: 69.4%, Post-Grad (MBA): 7.2 CGPA.",
+            "entrepreneurship": "Aryan founded and manages his own streetwear clothing brand called 'Not Average'.",
+            "tech_projects": "He has a strong interest in AI and data. He built a Mercedes-Benz sales dashboard using Power BI and is currently developing 'Munshi AI' and 'Parth', hyper-local AI apps to assist small vendors.",
+            "podcast": "He hosts the 'House of Perspective' podcast, a platform dedicated to exploring personal growth, psychology, and engaging conversations with diverse guests.",
+            "certifications": "He holds a Google Project Management Professional Certificate, combining his creative vision with structured project execution.",
+            "future_goals": "He is actively seeking roles as a Project Manager or Growth Marketer, aiming to leverage his psychology background and marketing skills to solve real-world business problems."
+        };
+
+        function getBotResponse(input) {
+            const query = input.toLowerCase();
+            
+            if (query.includes("born") || query.includes("childhood") || query.includes("origin")) return aryanData.origin;
+            if (query.includes("transformation") || query.includes("weight") || query.includes("smart") || query.includes("focus")) return aryanData.transformation;
+            if (query.includes("mba") || query.includes("iit") || query.includes("education") || query.includes("cat")) return aryanData.education;
+            if (query.includes("jai bharat") || query.includes("sales") || query.includes("b2b")) return aryanData.sales_experience;
+            if (query.includes("sgf") || query.includes("marketing") || query.includes("intern") || query.includes("dia")) return aryanData.marketing_internship;
+            if (query.includes("cycle") || query.includes("marathon") || query.includes("hobbies") || query.includes("running")) return aryanData.hobbies;
+            if (query.includes("why") || query.includes("skills") || query.includes("hire") || query.includes("manager")) return aryanData.why_hire;
+            if (query.includes("grades") || query.includes("marks") || query.includes("percent")) return aryanData.grades;
+            if (query.includes("brand") || query.includes("clothing") || query.includes("not average") || query.includes("business")) return aryanData.entrepreneurship;
+            if (query.includes("project") || query.includes("ai") || query.includes("power bi") || query.includes("munshi")) return aryanData.tech_projects;
+            if (query.includes("podcast") || query.includes("perspective") || query.includes("host")) return aryanData.podcast;
+            if (query.includes("certificate") || query.includes("google") || query.includes("certification")) return aryanData.certifications;
+            if (query.includes("goal") || query.includes("future") || query.includes("looking for") || query.includes("role")) return aryanData.future_goals;
+
+            return "Aryan has a fascinating journey from Psychology to a 3.6 Crore sales portfolio and now an MBA at IIT Jodhpur. Ask me about his 'rebirth' at IIT, his podcast, his AI projects, or his ultra-marathon running!";
+        }
+
         function toggleChat() {
             const windowEl = document.getElementById('chatbot-window');
             const icon = document.getElementById('chat-icon');
@@ -594,6 +631,7 @@
 
             const msgContainer = document.getElementById('chatbot-messages');
             
+            // Show the user's message
             const userDiv = document.createElement('div');
             userDiv.style.textAlign = 'right';
             userDiv.innerHTML = `<span style="background:black; color:white; padding:10px; border-radius:8px; margin-bottom:10px; display:inline-block;">${msg}</span>`;
@@ -601,9 +639,13 @@
             
             input.value = '';
 
+            // Generate the dynamic response from your training data!
+            const reply = getBotResponse(msg);
+
+            // Show the bot's reply
             setTimeout(() => {
                 const botDiv = document.createElement('div');
-                botDiv.innerHTML = `<span class="bot-msg">Aryan is currently optimizing his Power BI dashboard, but he'll get back to you soon. Please use the Contact page to send a formal email.</span>`;
+                botDiv.innerHTML = `<span class="bot-msg">${reply}</span>`;
                 msgContainer.appendChild(botDiv);
                 msgContainer.scrollTop = msgContainer.scrollHeight;
             }, 600);
