@@ -87,7 +87,7 @@ RULES:
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${apiKey}`,
-        "HTTP-Referer": "https://sage-fox-37e7be.netlify.app/",
+        "HTTP-Referer": "https://aryankrishan.netlify.app/",
         "X-Title": "Aryan Jr. Chatbot"
       },
       body: JSON.stringify({
