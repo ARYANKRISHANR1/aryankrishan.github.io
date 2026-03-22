@@ -284,10 +284,14 @@
         }
 
         /* Chatbot: aryan jr. */
-        #chatbot-container {
-            position: fixed; bottom: 20px; right: 20px;
-            width: 320px; z-index: 1000;
-            color: #333;
+       #chatbot-container { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            width: 320px; 
+            z-index: 1000; 
+            color: #333; 
+            display: none; /* THIS HIDES IT ON THE FIRST PAGE */
         }
         #chatbot-header {
             background-color: white; color: black;
@@ -527,7 +531,7 @@
         }
         drawStars();
 
-        // --- TRANSITION LOGIC ---
+       // --- TRANSITION LOGIC ---
         function startJourney() {
             speed = 40; // Lightspeed engage!
             isWarping = true;
@@ -545,10 +549,16 @@
                 
                 // Fade in main site
                 document.getElementById('main-nav').style.opacity = '1';
-                document.getElementById('home').style.display = 'block';
+                
+                // Note: using 'flex' here keeps your text and image aligned perfectly
+                document.getElementById('home').style.display = 'flex'; 
                 void document.getElementById('home').offsetWidth; // Trigger reflow
                 document.getElementById('home').classList.add('active');
-            }, 1000); 
+                
+                // --- THIS IS THE NEW LINE THAT SHOWS ARYAN JR ---
+                document.getElementById('chatbot-container').style.display = 'block';
+                
+            }, 1000); // 1 second delay to match the warp animation
         }
 
         // --- NAVIGATION LOGIC ---
