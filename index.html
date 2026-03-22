@@ -665,9 +665,12 @@
                 const data = await response.json();
                 document.getElementById('typing-indicator').parentNode.remove();
 
+                // FIX: Check if data.reply exists before showing it to avoid 'undefined'
+                const replyText = data.reply || "Aryan Jr. is thinking, but the words got stuck!";
+
                 // Show the AI's real response
                 const botDiv = document.createElement('div');
-                botDiv.innerHTML = `<span class="bot-msg">${data.reply}</span>`;
+                botDiv.innerHTML = `<span class="bot-msg">${replyText}</span>`;
                 msgContainer.appendChild(botDiv);
             } catch (error) {
                 if(document.getElementById('typing-indicator')) document.getElementById('typing-indicator').parentNode.remove();
